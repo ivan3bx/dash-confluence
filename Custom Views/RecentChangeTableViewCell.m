@@ -18,9 +18,9 @@
 }
 
 - (void)setDataSource: (RecentChange *)dataSource {
-	[author setMinimumFontSize:author.font.pointSize];
-	[title setMinimumFontSize:title.font.pointSize];
-	[date setMinimumFontSize:date.font.pointSize];
+	[author setMinimumScaleFactor:author.font.pointSize];
+	[title setMinimumScaleFactor:title.font.pointSize];
+	[date setMinimumScaleFactor:date.font.pointSize];
 	
 	data = dataSource;
 	author.text = dataSource.author;
