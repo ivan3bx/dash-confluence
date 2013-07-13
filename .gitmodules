@@ -1,0 +1,3 @@
+[submodule "Frameworks/TouchXML"]
+	path = Frameworks/TouchXML
+	url = git@github.com:TouchCode/TouchXML.git
