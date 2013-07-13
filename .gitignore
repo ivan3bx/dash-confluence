@@ -1,0 +1,16 @@
+# -- Xcode
+*.xcworkspace
+xcuserdata
+build
+*.perspectivev3
+
+# -- other
+.DS_Store
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+# -- Release artifacts
+Releases/**/dist

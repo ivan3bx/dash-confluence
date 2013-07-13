@@ -1,0 +1,70 @@
+Notes on potential approach to writing simple in-device rendering
+engine if dealing with raw wiki source from Confluence.. (Jun 09)
+-----------------------------------------------------------------
+
+Grabbing summary section:
+(?m:^\s+<summary.*?</summary>)
+
+
+
+// Scrape loaded page looking for page link:
+
+<a\s+id="editPageLink"\s+href=".*?pageId=(\d+)"
+
+Capture group $1 returns input for viewpagesrc
+
+
+Handling viewpagesrc output
+---------------------------
+
+1) Selecting content from view
+(?m:.*<body>(.*)</body>.*)  -> replace with $1
+
+2) Removing any stray 'div' tags
+</?div.*?> 			-> replace with empty string
+
+3) Remove any <br> or <br/> tags
+<br/?>				-> \n
+
+4) Remove head/trailing spaces
+((\A\s+)|(\s+\Z))	-> replace with empty string
+
+
+HTML Processing..
+-----------------
+
+5) Remove section/column elements
+(\{section\}|\{column.*?\})		-> replace with empty string
+
+6) Replace .h3, .h4, etc..
+^h([1-5]).[\s]+(.*)$			-> <h$1>$2</h$1>
+
+7) Handle ordered lists:
+\n(?m:^#\s+(.*?)\n$)			-> <ol>$0</ol>
+^#\s+(.*?)$						-> <li>$1</li>
+
+8) Handle unordered lists:
+(\n(?m:^\*+\s+(.*?)$))+			-> <ul>$0\n</ul>
+^\*\s+(.*?)$					-> <li>$1</li>
+
+9) Nested unordered lists:
+(\n(?m:^\*+\s+(.*?)$))+			-> \n<ul>$0\n</ul>
+^\*\*\s+(.*?)$					-> <li>$1</li>
+
+10) Bold
+\*(.*?)\*						-> <b>$1</b>
+
+11) Italic (includes 'space' character at index=0)
+ (_(.*?)_)(?!\w)				->  <i>$1</i>
+
+12) Fix escaped nbsp's
+&amp;nbsp;						-> &nbsp;
+
+13) Forced newlines
+\\								-> <br/>
+
+14) Paragraphs
+(?m:^\n([^<].*?)(?=\n\n))		-> <p>$1</p>
+
+15) Newlines to BR (anything newlines not terminated by a tag)
+(?<!>)\n+						-> <br/>\n

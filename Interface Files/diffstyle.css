@@ -1,0 +1,38 @@
+.diffadded {
+	background:#D1FFD1 none repeat scroll 0 0;
+	border-left:4px solid darkgreen;
+	padding:1px 1px 1px 4px;
+}
+
+.diffdeleted {
+	background:#FFDDDD none repeat scroll 0 0;
+	border-left:4px solid darkred;
+	color:#777777;
+	padding:1px 1px 1px 4px;
+}
+
+.diffnochange {
+	border-left:4px solid lightgrey;
+	padding:1px 1px 1px 4px;
+}
+
+.differror {
+	background:brown none repeat scroll 0 0;
+}
+
+.diff {
+	font-family:lucida console,courier new,fixed-width;
+	font-size:16px;
+	line-height:18px;
+}
+
+.diffaddedchars {
+	background-color:#99FF99;
+	font-weight:bolder;
+}
+
+.diffremovedchars {
+	background-color:#FF9999;
+	font-weight:bolder;
+	text-decoration:line-through;
+}
